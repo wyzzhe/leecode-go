@@ -11,10 +11,13 @@ func main() {
 }
 
 func runTree() {
-	flag := "tree"
+	flag := "Ddd"
 	switch flag {
 	case "tree":
 		tree := tree.NewTreeNode()
 		fmt.Printf("%+v\n", tree)
+	case "Ddd":
+		result := tree.Ddd()
+		fmt.Println(result)
 	}
 }
