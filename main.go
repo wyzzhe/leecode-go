@@ -222,39 +222,40 @@ func runStackAndQueue() {
 }
 
 func runTree() {
-	flag := "Traversal"
+	// acm模式二叉树输入
+	// 输入第一行是n，代表有n行数据（n个节点）
+	var n int
+	fmt.Scan(&n)
+
+	// nodes节点数组从下标1开始存放二叉树节点，数组容量为n+1
+	nodes := make([]*tree.TreeNode, n+1)
+
+	// 先初始化所有节点，下标从1到n（二叉树节点数）
+	for i := 1; i <= n; i++ {
+		nodes[i] = &tree.TreeNode{}
+	}
+
+	// 接收二叉树节点的值和左右指针下标
+	var val int
+	for i := 0; i < n; i++ {
+		fmt.Scan(&val)
+		left, right := 0, 0
+		fmt.Scan(&left, &right)
+		// 二叉树节点单独对值赋值
+		nodes[i+1].Val = val
+		// 左右指针下标不为0时，左右子树节点指针赋值
+		if left != 0 {
+			nodes[i+1].Left = nodes[left]
+		}
+		if right != 0 {
+			nodes[i+1].Right = nodes[right]
+		}
+	}
+	root := nodes[1]
+
+	flag := "IterPreOrder"
 	switch flag {
 	case "Traversal":
-		// acm模式二叉树输入
-		// 输入第一行是n，代表有n行数据（n个节点）
-		var n int
-		fmt.Scan(&n)
-
-		// nodes节点数组从下标1开始存放二叉树节点，数组容量为n+1
-		nodes := make([]*tree.TreeNode, n+1)
-
-		// 先初始化所有节点，下标从1到n（二叉树节点数）
-		for i := 1; i <= n; i++ {
-			nodes[i] = &tree.TreeNode{}
-		}
-
-		// 接收二叉树节点的值和左右指针下标
-		var val int
-		for i := 0; i < n; i++ {
-			fmt.Scan(&val)
-			left, right := 0, 0
-			fmt.Scan(&left, &right)
-			// 二叉树节点单独对值赋值
-			nodes[i+1].Val = val
-			// 左右指针下标不为0时，左右子树节点指针赋值
-			if left != 0 {
-				nodes[i+1].Left = nodes[left]
-			}
-			if right != 0 {
-				nodes[i+1].Right = nodes[right]
-			}
-		}
-		root := nodes[1]
 
 		// 前序遍历
 		res := tree.PreOrderTraversal(root)
@@ -265,6 +266,9 @@ func runTree() {
 		// 后序遍历
 		res = tree.ETraversal(root)
 		fmt.Printf("%#v\n", res)
+	case "IterPreOrder":
+		result := tree.IterPreOrder(root)
+		fmt.Println(result)
 	}
 }
 
