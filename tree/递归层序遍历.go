@@ -3,7 +3,7 @@ package tree
 // 二叉树的层序遍历，前序 / 中序 / 后序
 
 // 前序遍历
-func PreOrderTraversal(root *TreeNode) (res []int) {
+func RecursionPreOrderTraversal(root *TreeNode) (res []int) {
 	var traversal func(node *TreeNode)
 	traversal = func(node *TreeNode) {
 		if node == nil {
@@ -19,7 +19,7 @@ func PreOrderTraversal(root *TreeNode) (res []int) {
 }
 
 // 中序遍历
-func NTraversal(root *TreeNode) (res []int) {
+func RecursionNTraversal(root *TreeNode) (res []int) {
 	var traversal func(node *TreeNode)
 	traversal = func(node *TreeNode) {
 		if node == nil {
@@ -35,7 +35,7 @@ func NTraversal(root *TreeNode) (res []int) {
 }
 
 // 后序遍历
-func ETraversal(root *TreeNode) (res []int) {
+func RecursionETraversal(root *TreeNode) (res []int) {
 	var traversal func(*TreeNode)
 	traversal = func(node *TreeNode) {
 		if node == nil {
