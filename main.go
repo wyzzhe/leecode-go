@@ -290,6 +290,8 @@ func runTree() {
 	case "IterTraversal":
 		result := tree.IterPreOrderTraversal(root)
 		fmt.Println(result)
+		result = tree.IterNOrderTraversal(root)
+		fmt.Println(result)
 		result = tree.IterEOrderTraversal(root)
 		fmt.Println(result)
 	}

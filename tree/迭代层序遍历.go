@@ -84,6 +84,24 @@ func reverse(nums []int) []int {
 // 中序遍历
 func IterNOrderTraversal(root *TreeNode) []int {
 	res := []int{}
+	// 双向链表模拟栈
+	st := list.New()
+	// 指针
+	cur := root
 
+	// 遍历树
+	for cur != nil || st.Len() > 0 {
+		if cur != nil {
+			// 入栈
+			st.PushBack(cur)
+			cur = cur.Left
+		} else {
+			// 出栈
+			node := st.Remove(st.Back()).(*TreeNode)
+			// 入列表
+			res = append(res, node.Val)
+			cur = node.Right
+		}
+	}
 	return res
 }
