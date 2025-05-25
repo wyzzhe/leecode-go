@@ -256,6 +256,7 @@ func runTree() {
 		}
 		root = nodes[1]
 	} else {
+		// 自动构建一个5个节点的二叉树
 		n := 5
 		nodes := make([]*tree.TreeNode, n+1)
 		for i := 1; i <= n; i++ {
@@ -273,9 +274,11 @@ func runTree() {
 			}
 		}
 		root = nodes[1]
+		fmt.Println("自动构建的二叉树为")
+		printTree(root)
 	}
 
-	flag := "IterTraversal"
+	flag := "InvertTree"
 	switch flag {
 	case "RecursionTraversal":
 		// 前序遍历
@@ -294,6 +297,10 @@ func runTree() {
 		fmt.Println(result)
 		result = tree.IterEOrderTraversal(root)
 		fmt.Println(result)
+	case "InvertTree":
+		result := tree.InvertTree(root)
+		fmt.Println("处理后的二叉树为")
+		printTree(result)
 	}
 }
 
@@ -315,4 +322,17 @@ func printList(head *list.ListNode) {
 		head = head.Next
 	}
 	fmt.Println("nil")
+}
+
+// 辅助函数：打印二叉树
+func printTree(root *tree.TreeNode) {
+	if root == nil {
+		fmt.Println("二叉树为空")
+		return
+	}
+
+	node := root
+	fmt.Println(node.Val)
+	printTree(node.Left)
+	printTree(node.Right)
 }
