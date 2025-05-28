@@ -5,6 +5,7 @@ import (
 
 	"github.com/wyzzhe/leecode-go/acm"
 	"github.com/wyzzhe/leecode-go/array"
+	"github.com/wyzzhe/leecode-go/backtracing"
 	"github.com/wyzzhe/leecode-go/hashmap"
 	"github.com/wyzzhe/leecode-go/list"
 	"github.com/wyzzhe/leecode-go/stackandqueue"
@@ -13,7 +14,7 @@ import (
 )
 
 func main() {
-	runTree()
+	runArray()
 }
 
 func runAcm() {
@@ -43,7 +44,7 @@ func runAcm() {
 }
 
 func runArray() {
-	flag := "GenerateMatrix"
+	flag := "kthLargestNumbers"
 	switch flag {
 	case "SplitSearch":
 		index := array.SplitSearch([]int{1, 2, 3, 4, 5}, 4)
@@ -60,6 +61,9 @@ func runArray() {
 	case "GenerateMatrix":
 		index := array.GenerateMatrix(3)
 		fmt.Println(index)
+	case "kthLargestNumbers":
+		result := array.KthLargestNumbers([]string{"3", "6", "7", "10"}, 3)
+		fmt.Println(result)
 	}
 }
 
@@ -222,6 +226,77 @@ func runStackAndQueue() {
 }
 
 func runTree() {
+	root := getTree()
+	flag := "InvertTree"
+	switch flag {
+	case "RecursionTraversal":
+		// 前序遍历
+		res := tree.RecursionPreOrderTraversal(root)
+		fmt.Printf("%#v\n", res)
+		// 中序遍历
+		res = tree.RecursionNTraversal(root)
+		fmt.Printf("%#v\n", res)
+		// 后序遍历
+		res = tree.RecursionETraversal(root)
+		fmt.Printf("%#v\n", res)
+	case "IterTraversal":
+		result := tree.IterPreOrderTraversal(root)
+		fmt.Println(result)
+		result = tree.IterNOrderTraversal(root)
+		fmt.Println(result)
+		result = tree.IterEOrderTraversal(root)
+		fmt.Println(result)
+	case "InvertTree":
+		result := tree.InvertTree(root)
+		fmt.Println("处理后的二叉树为")
+		printTree(result)
+	}
+}
+
+func runBackTracing() {
+	flag := "Combine"
+	switch flag {
+	case "Combine":
+		result := backtracing.Combine(4, 2)
+		fmt.Println(result)
+	}
+}
+
+// 辅助函数：打印链表
+func printList(head *list.ListNode) {
+	result := list.DetectCycle(head)
+	flag := false
+	for head != nil {
+		fmt.Printf("%d -> ", head.Val)
+		if head.Val == result.Val {
+			// 第一次打印到环入口
+			if !flag {
+				flag = true
+			} else {
+				// 第二次打印到环入口
+				break
+			}
+		}
+		head = head.Next
+	}
+	fmt.Println("nil")
+}
+
+// 辅助函数：打印二叉树
+func printTree(root *tree.TreeNode) {
+	if root == nil {
+		fmt.Println("二叉树为空")
+		return
+	}
+
+	node := root
+	fmt.Println(node.Val)
+	printTree(node.Left)
+	printTree(node.Right)
+}
+
+// 辅助函数：输入或构造二叉树
+func getTree() *tree.TreeNode {
 	acmFlag := false
 	var root *tree.TreeNode
 	if acmFlag {
@@ -277,62 +352,5 @@ func runTree() {
 		fmt.Println("自动构建的二叉树为")
 		printTree(root)
 	}
-
-	flag := "InvertTree"
-	switch flag {
-	case "RecursionTraversal":
-		// 前序遍历
-		res := tree.RecursionPreOrderTraversal(root)
-		fmt.Printf("%#v\n", res)
-		// 中序遍历
-		res = tree.RecursionNTraversal(root)
-		fmt.Printf("%#v\n", res)
-		// 后序遍历
-		res = tree.RecursionETraversal(root)
-		fmt.Printf("%#v\n", res)
-	case "IterTraversal":
-		result := tree.IterPreOrderTraversal(root)
-		fmt.Println(result)
-		result = tree.IterNOrderTraversal(root)
-		fmt.Println(result)
-		result = tree.IterEOrderTraversal(root)
-		fmt.Println(result)
-	case "InvertTree":
-		result := tree.InvertTree(root)
-		fmt.Println("处理后的二叉树为")
-		printTree(result)
-	}
-}
-
-// 辅助函数：打印链表
-func printList(head *list.ListNode) {
-	result := list.DetectCycle(head)
-	flag := false
-	for head != nil {
-		fmt.Printf("%d -> ", head.Val)
-		if head.Val == result.Val {
-			// 第一次打印到环入口
-			if !flag {
-				flag = true
-			} else {
-				// 第二次打印到环入口
-				break
-			}
-		}
-		head = head.Next
-	}
-	fmt.Println("nil")
-}
-
-// 辅助函数：打印二叉树
-func printTree(root *tree.TreeNode) {
-	if root == nil {
-		fmt.Println("二叉树为空")
-		return
-	}
-
-	node := root
-	fmt.Println(node.Val)
-	printTree(node.Left)
-	printTree(node.Right)
+	return root
 }
